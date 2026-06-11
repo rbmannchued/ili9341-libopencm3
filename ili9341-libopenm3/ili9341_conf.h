@@ -1,8 +1,6 @@
 #ifndef __ILI9341_CONF_H__
 #define __ILI9341_CONF_H__
 
-#define STM32F4
-
 #define TFT_SPI   SPI1
 #define TFT_PORT  GPIOA
 #define TFT_SCK   GPIO5   /* PA5 = SPI1_SCK  */

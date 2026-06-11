@@ -38,14 +38,20 @@
 static uint16_t _width  = ILI9341_WIDTH;
 static uint16_t _height = ILI9341_HEIGHT;
 
-/* --- Low-level helpers --- */
-
-static void delay_ms(uint32_t ms)
+static void default_delay_ms(uint32_t ms)
 {
-    /* Rough busy-wait. Safe across common STM32F4 clock configs. */
     for (volatile uint32_t i = 0; i < ms * 16000; i++)
         __asm__("nop");
 }
+
+static void (*delay_fn)(uint32_t) = default_delay_ms;
+
+void ili9341_set_delay_function(void (*fn)(uint32_t))
+{
+    if (fn)
+        delay_fn = fn;
+}
+
 
 static inline void cs_high(void) {
     while (SPI_SR(TFT_SPI) & SPI_SR_BSY);
@@ -100,11 +106,11 @@ static void set_address_window(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y
 static void tft_reset(void)
 {
     gpio_set(TFT_PORT, TFT_RST);
-    delay_ms(5);
+    delay_fn(5);
     gpio_clear(TFT_PORT, TFT_RST);
-    delay_ms(20);
+    delay_fn(20);
     gpio_set(TFT_PORT, TFT_RST);
-    delay_ms(150);
+    delay_fn(150);
 }
 
 /* --- Public API --- */
@@ -118,7 +124,7 @@ static void tft_reset(void)
 
     /* Initialization sequence copied from Martnak: https://github.com/martnak/STM32-ILI9341  */
     write_cmd(CMD_SWRESET);
-    delay_ms(120);
+    delay_fn(120);
 
     //POWER CONTROL A
     write_cmd(0xCB);
@@ -237,10 +243,10 @@ static void tft_reset(void)
 
     //EXIT SLEEP
     write_cmd(0x11);
-    delay_ms(120);
+    delay_fn(120);
 
     write_cmd(CMD_DISPON);//gfim
-    delay_ms(10);
+    delay_fn(10);
     //turn on backlight
     gpio_set(LED_PORT, LED_PIN);
 }

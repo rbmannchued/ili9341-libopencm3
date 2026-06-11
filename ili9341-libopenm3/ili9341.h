@@ -61,18 +61,20 @@
 #define ILI9341_GRAY    0x8410
 
 /* --- API --- */
-void     ili9341_init(void);
-void     ili9341_set_rotation(uint8_t rotation); /* 0-3 */
+void ili9341_init(void);
+void ili9341_set_rotation(uint8_t rotation); /* 0-3 */
+
+void ili9341_set_delay_function(void (*fn)(uint32_t)); // if not set, driver will use blocking delay function and may not work
 
 uint16_t ili9341_get_width(void);
 uint16_t ili9341_get_height(void);
 
-void     ili9341_draw_pixel(uint16_t x, uint16_t y, uint16_t color);
-void     ili9341_fill_rectangle(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);
-void     ili9341_fill_screen(uint16_t color);
-void     ili9341_draw_image(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t *data);
+void ili9341_draw_pixel(uint16_t x, uint16_t y, uint16_t color);
+void ili9341_fill_rectangle(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);
+void ili9341_fill_screen(uint16_t color);
+void ili9341_draw_image(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t *data);
 
-void     ili9341_draw_char(uint16_t x, uint16_t y, char ch, FontDef font, uint16_t fg, uint16_t bg);
-void     ili9341_write_string(uint16_t x, uint16_t y, const char *str, FontDef font, uint16_t fg, uint16_t bg);
+void ili9341_draw_char(uint16_t x, uint16_t y, char ch, FontDef font, uint16_t fg, uint16_t bg);
+void ili9341_write_string(uint16_t x, uint16_t y, const char *str, FontDef font, uint16_t fg, uint16_t bg);
 
 #endif /* __ILI9341_H__ */

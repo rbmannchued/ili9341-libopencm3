@@ -17,14 +17,14 @@ static void spi_gpio_setup(void)
     gpio_set_output_options(TFT_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ,
                             TFT_SCK | TFT_MOSI);
 
-    /* CS, DC, RST — saída */
+    /* CS, DC, RST — output */
     gpio_mode_setup(TFT_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE,
                     TFT_CS | TFT_DC | TFT_RST);
     gpio_set_output_options(TFT_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ,
                             TFT_CS | TFT_DC | TFT_RST);
     gpio_set(TFT_PORT, TFT_CS);
 
-    /* LED backlight — saída */
+    /* LED backlight — output */
     gpio_mode_setup(LED_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, LED_PIN);
     gpio_set_output_options(LED_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_2MHZ, LED_PIN);
 
@@ -39,11 +39,21 @@ static void spi_gpio_setup(void)
     spi_enable(SPI1);
 }
 
+static void example_delay_function(uint32_t ms) // Change to non blocking delay function
+{
+    for (volatile uint32_t i = 0; i < ms * 16000; i++)
+        __asm__("nop");
+}
+
+
 
 int main(void)
 {
     rcc_clock_setup_pll(&rcc_hse_25mhz_3v3[RCC_CLOCK_3V3_84MHZ]);
+    
     spi_gpio_setup();
+
+    ili9341_set_delay_function(example_delay_function); // Change delay functon before init
     ili9341_init();
 
     // Landscape Orientation
@@ -51,22 +61,21 @@ int main(void)
 
     ili9341_fill_screen(ILI9341_BLACK);
 
-    /* ili9341_write_string(10, 10,  "ILI9341 + libopencm3", Font_7x10,  ILI9341_WHITE,  ILI9341_BLACK); */
+    ili9341_write_string(10, 170,  "ILI9341 + libopencm3", Font_7x10,  ILI9341_WHITE,  ILI9341_BLACK);
     ili9341_write_string(10, 30,  "Hello, World!",        Font_11x18, ILI9341_YELLOW, ILI9341_BLACK);
-
-
-    /* Red rectangle */
-    ili9341_fill_rectangle(50, 50, 50, 50, ILI9341_RED);
-
-    /* Green rectangle */
-
 
     /* Row of single pixels */
     for(int x = 0; x < 240/2; x++){
 	ili9341_draw_pixel(x, 50, ILI9341_WHITE);
 	ili9341_draw_pixel(x, 50, ILI9341_WHITE);
     }
+    /* Magenta Rectangle */
+    ili9341_fill_rectangle(0, 60, 50, 50, ILI9341_BLUE);
+    /* Red rectangle */
+    ili9341_fill_rectangle(50, 60, 50, 50, ILI9341_YELLOW);
+    /* Green Rectangle */
     ili9341_fill_rectangle(0, 101, 100, 50, ILI9341_GREEN);
+
     while (1);
     return 0;
 }
