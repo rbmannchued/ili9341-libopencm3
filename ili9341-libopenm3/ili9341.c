@@ -147,104 +147,104 @@ static void tft_reset(void)
 
 /* --- Public API --- */
 
-void ili9341_init(void)
-{
-    spi_setup();
+/* void ili9341_init(void) */
+/* { */
+/*     spi_setup(); */
 
-    /* Hardware reset */
-    tft_reset();
+/*     /\* Hardware reset *\/ */
+/*     tft_reset(); */
 
-    /* Initialization sequence (Adafruit/datasheet derived) */
-    write_cmd(CMD_SWRESET);
-    delay_ms(150);
+/*     /\* Initialization sequence (Adafruit/datasheet derived) *\/ */
+/*     write_cmd(CMD_SWRESET); */
+/*     delay_ms(150); */
     
-    write_cmd(CMD_SLPOUT);
-    delay_ms(120);
+/*     write_cmd(CMD_SLPOUT); */
+/*     delay_ms(120); */
     
-    write_cmd(CMD_PWCTR1);
-    write_data(0x23);
+/*     write_cmd(CMD_PWCTR1); */
+/*     write_data(0x23); */
     
-    write_cmd(CMD_PWCTR2);
-    write_data(0x10);
+/*     write_cmd(CMD_PWCTR2); */
+/*     write_data(0x10); */
 
-    write_cmd(CMD_VMCTR1);  write_data(0x3E); write_data(0x28);
-    write_cmd(CMD_VMCTR2);  write_data(0x86);
+/*     write_cmd(CMD_VMCTR1);  write_data(0x3E); write_data(0x28); */
+/*     write_cmd(CMD_VMCTR2);  write_data(0x86); */
 
-    write_cmd(CMD_MADCTL);  write_data(0x48); /* portrait */
-    write_cmd(CMD_COLMOD);  write_data(0x55); /* RGB565 */
+/*     write_cmd(CMD_MADCTL);  write_data(0x48); /\* portrait *\/ */
+/*     write_cmd(CMD_COLMOD);  write_data(0x55); /\* RGB565 *\/ */
 
-    write_cmd(CMD_FRMCTR1); write_data(0x00); write_data(0x18);
+/*     write_cmd(CMD_FRMCTR1); write_data(0x00); write_data(0x18); */
 
-    write_cmd(CMD_DFUNCTR); write_data(0x08); write_data(0x82); write_data(0x27);
+/*     write_cmd(CMD_DFUNCTR); write_data(0x08); write_data(0x82); write_data(0x27); */
 
-    write_cmd(CMD_GAMMASET);   write_data(0x01);
+/*     write_cmd(CMD_GAMMASET);   write_data(0x01); */
 
-    write_cmd(CMD_GMCTRP1);
-    write_data(0x0F); write_data(0x31); write_data(0x2B); write_data(0x0C);
-    write_data(0x0E); write_data(0x08); write_data(0x4E); write_data(0xF1);
-    write_data(0x37); write_data(0x07); write_data(0x10); write_data(0x03);
-    write_data(0x0E); write_data(0x09); write_data(0x00);
+/*     write_cmd(CMD_GMCTRP1); */
+/*     write_data(0x0F); write_data(0x31); write_data(0x2B); write_data(0x0C); */
+/*     write_data(0x0E); write_data(0x08); write_data(0x4E); write_data(0xF1); */
+/*     write_data(0x37); write_data(0x07); write_data(0x10); write_data(0x03); */
+/*     write_data(0x0E); write_data(0x09); write_data(0x00); */
 
-    write_cmd(CMD_GMCTRN1);
-    write_data(0x00); write_data(0x0E); write_data(0x14); write_data(0x03);
-    write_data(0x11); write_data(0x07); write_data(0x31); write_data(0xC1);
-    write_data(0x48); write_data(0x08); write_data(0x0F); write_data(0x0C);
-    write_data(0x31); write_data(0x36); write_data(0x0F);
+/*     write_cmd(CMD_GMCTRN1); */
+/*     write_data(0x00); write_data(0x0E); write_data(0x14); write_data(0x03); */
+/*     write_data(0x11); write_data(0x07); write_data(0x31); write_data(0xC1); */
+/*     write_data(0x48); write_data(0x08); write_data(0x0F); write_data(0x0C); */
+/*     write_data(0x31); write_data(0x36); write_data(0x0F); */
 
-    write_cmd(CMD_DISPON);//gfim
-    delay_ms(10);
-    gpio_set(LED_PORT, LED_PIN);
+/*     write_cmd(CMD_DISPON);//gfim */
+/*     delay_ms(10); */
+/*     gpio_set(LED_PORT, LED_PIN); */
     
-    /* write_cmd(CMD_PWCTRB); */
-    /* write_data(0x00); write_data(0xC1); write_data(0x30); */
+/*     /\* write_cmd(CMD_PWCTRB); *\/ */
+/*     /\* write_data(0x00); write_data(0xC1); write_data(0x30); *\/ */
 
-    /* write_cmd(CMD_PWRONSEQ); */
-    /* write_data(0x64); write_data(0x03); write_data(0x12); write_data(0x81); */
+/*     /\* write_cmd(CMD_PWRONSEQ); *\/ */
+/*     /\* write_data(0x64); write_data(0x03); write_data(0x12); write_data(0x81); *\/ */
 
-    /* write_cmd(CMD_TIMCTRA); */
-    /* write_data(0x85); write_data(0x00); write_data(0x78); */
+/*     /\* write_cmd(CMD_TIMCTRA); *\/ */
+/*     /\* write_data(0x85); write_data(0x00); write_data(0x78); *\/ */
 
-    /* write_cmd(CMD_PWCTRA); */
-    /* write_data(0x39); write_data(0x2C); write_data(0x00); write_data(0x34); write_data(0x02); */
+/*     /\* write_cmd(CMD_PWCTRA); *\/ */
+/*     /\* write_data(0x39); write_data(0x2C); write_data(0x00); write_data(0x34); write_data(0x02); *\/ */
 
-    /* write_cmd(CMD_PUMPRATIO); */
-    /* write_data(0x20); */
+/*     /\* write_cmd(CMD_PUMPRATIO); *\/ */
+/*     /\* write_data(0x20); *\/ */
 
-    /* write_cmd(CMD_TIMCTRB); */
-    /* write_data(0x00); write_data(0x00); */
+/*     /\* write_cmd(CMD_TIMCTRB); *\/ */
+/*     /\* write_data(0x00); write_data(0x00); *\/ */
 
-    /* write_cmd(CMD_PWCTR1);  write_data(0x23); */
-    /* write_cmd(CMD_PWCTR2);  write_data(0x10); */
+/*     /\* write_cmd(CMD_PWCTR1);  write_data(0x23); *\/ */
+/*     /\* write_cmd(CMD_PWCTR2);  write_data(0x10); *\/ */
 
-    /* write_cmd(CMD_VMCTR1);  write_data(0x3E); write_data(0x28); */
-    /* write_cmd(CMD_VMCTR2);  write_data(0x86); */
+/*     /\* write_cmd(CMD_VMCTR1);  write_data(0x3E); write_data(0x28); *\/ */
+/*     /\* write_cmd(CMD_VMCTR2);  write_data(0x86); *\/ */
 
-    /* write_cmd(CMD_MADCTL);  write_data(MADCTL_MX | MADCTL_BGR); */
-    /* write_cmd(CMD_COLMOD);  write_data(0x55);  /\* 16-bit/pixel RGB565 *\/ */
+/*     /\* write_cmd(CMD_MADCTL);  write_data(MADCTL_MX | MADCTL_BGR); *\/ */
+/*     /\* write_cmd(CMD_COLMOD);  write_data(0x55);  /\\* 16-bit/pixel RGB565 *\\/ *\/ */
 
-    /* write_cmd(CMD_FRMCTR1); write_data(0x00); write_data(0x18); */
-    /* write_cmd(CMD_DFUNCTR); write_data(0x08); write_data(0x82); write_data(0x27); */
+/*     /\* write_cmd(CMD_FRMCTR1); write_data(0x00); write_data(0x18); *\/ */
+/*     /\* write_cmd(CMD_DFUNCTR); write_data(0x08); write_data(0x82); write_data(0x27); *\/ */
 
-    /* write_cmd(CMD_EN3GAMMA); write_data(0x00); */
-    /* write_cmd(CMD_GAMMASET); write_data(0x01); */
+/*     /\* write_cmd(CMD_EN3GAMMA); write_data(0x00); *\/ */
+/*     /\* write_cmd(CMD_GAMMASET); write_data(0x01); *\/ */
 
-    /* write_cmd(CMD_GMCTRP1); */
-    /* write_data(0x0F); write_data(0x31); write_data(0x2B); write_data(0x0C); */
-    /* write_data(0x0E); write_data(0x08); write_data(0x4E); write_data(0xF1); */
-    /* write_data(0x37); write_data(0x07); write_data(0x10); write_data(0x03); */
-    /* write_data(0x0E); write_data(0x09); write_data(0x00); */
+/*     /\* write_cmd(CMD_GMCTRP1); *\/ */
+/*     /\* write_data(0x0F); write_data(0x31); write_data(0x2B); write_data(0x0C); *\/ */
+/*     /\* write_data(0x0E); write_data(0x08); write_data(0x4E); write_data(0xF1); *\/ */
+/*     /\* write_data(0x37); write_data(0x07); write_data(0x10); write_data(0x03); *\/ */
+/*     /\* write_data(0x0E); write_data(0x09); write_data(0x00); *\/ */
 
-    /* write_cmd(CMD_GMCTRN1); */
-    /* write_data(0x00); write_data(0x0E); write_data(0x14); write_data(0x03); */
-    /* write_data(0x11); write_data(0x07); write_data(0x31); write_data(0xC1); */
-    /* write_data(0x48); write_data(0x08); write_data(0x0F); write_data(0x0C); */
-    /* write_data(0x31); write_data(0x36); write_data(0x0F); */
+/*     /\* write_cmd(CMD_GMCTRN1); *\/ */
+/*     /\* write_data(0x00); write_data(0x0E); write_data(0x14); write_data(0x03); *\/ */
+/*     /\* write_data(0x11); write_data(0x07); write_data(0x31); write_data(0xC1); *\/ */
+/*     /\* write_data(0x48); write_data(0x08); write_data(0x0F); write_data(0x0C); *\/ */
+/*     /\* write_data(0x31); write_data(0x36); write_data(0x0F); *\/ */
 
-    /* write_cmd(CMD_SLPOUT); */
-    /* delay_ms(120); */
-    /* write_cmd(CMD_DISPON); */
-    /* delay_ms(100); */
-}
+/*     /\* write_cmd(CMD_SLPOUT); *\/ */
+/*     /\* delay_ms(120); *\/ */
+/*     /\* write_cmd(CMD_DISPON); *\/ */
+/*     /\* delay_ms(100); *\/ */
+/* } */
 
 void ili9341_set_rotation(uint8_t rotation)
 {
@@ -357,27 +357,138 @@ void ili9341_write_string(uint16_t x, uint16_t y, const char *str, FontDef font,
     }
 }
 
-/* void ili9341_init(void) */
-/* { */
-/*     spi_setup(); */
+void ili9341_init(void)
+{
+    spi_setup();
 
-/*     /\* Hardware reset *\/ */
-/*     tft_reset(); */
+    /* Hardware reset */
+    tft_reset();
 
-/*     /\* Initialization sequence copied from  *\/ */
-/*     write_cmd(CMD_SWRESET); */
-/*     delay_ms(150); */
+    /* Initialization sequence copied from  */
+    write_cmd(CMD_SWRESET);
+    delay_ms(120);
 
-/*     //POWER CONTROL A */
-/*     ILI9341_Write_Command(0xCB); */
-/*     ILI9341_Write_Data(0x39); */
-/*     ILI9341_Write_Data(0x2C); */
-/*     ILI9341_Write_Data(0x00); */
-/*     ILI9341_Write_Data(0x34); */
-/*     ILI9341_Write_Data(0x02); */
-    
+    //POWER CONTROL A
+    write_cmd(0xCB);
+    write_data(0x39);
+    write_data(0x2C);
+    write_data(0x00);
+    write_data(0x34);
+    write_data(0x02);
 
-/*     write_cmd(CMD_DISPON);//gfim */
-/*     delay_ms(10); */
-/*     gpio_set(LED_PORT, LED_PIN); */
-/* } */
+    //POWER CONTROL B
+    write_cmd(0xCF);
+    write_data(0x00);
+    write_data(0xC1);
+    write_data(0x30);
+
+//DRIVER TIMING CONTROL A
+    write_cmd(0xE8);
+    write_data(0x85);
+    write_data(0x00);
+    write_data(0x78);
+
+//DRIVER TIMING CONTROL B
+    write_cmd(0xEA);
+    write_data(0x00);
+    write_data(0x00);
+
+//POWER ON SEQUENCE CONTROL
+    write_cmd(0xED);
+    write_data(0x64);
+    write_data(0x03);
+    write_data(0x12);
+    write_data(0x81);
+
+//PUMP RATIO CONTROL
+    write_cmd(0xF7);
+    write_data(0x20);
+//POWER CONTROL,VRH[5:0]
+    write_cmd(0xC0);
+    write_data(0x23);
+
+//POWER CONTROL,SAP[2:0];BT[3:0]
+    write_cmd(0xC1);
+    write_data(0x10);
+
+//VCM CONTROL
+    write_cmd(0xC5);
+    write_data(0x3E);
+    write_data(0x28);
+
+//VCM CONTROL 2
+    write_cmd(0xC7);
+    write_data(0x86);
+
+//MEMORY ACCESS CONTROL
+    write_cmd(0x36);
+    write_data(0x48);
+
+//PIXEL FORMAT
+    write_cmd(0x3A);
+    write_data(0x55);
+
+//FRAME RATIO CONTROL, STANDARD RGB COLOR
+    write_cmd(0xB1);
+    write_data(0x00);
+    write_data(0x18);
+
+//DISPLAY FUNCTION CONTROL
+    write_cmd(0xB6);
+    write_data(0x08);
+    write_data(0x82);
+    write_data(0x27);
+
+//3GAMMA FUNCTION DISABLE
+    write_cmd(0xF2);
+    write_data(0x00);
+
+//GAMMA CURVE SELECTED
+    write_cmd(0x26);
+    write_data(0x01);
+
+//POSITIVE GAMMA CORRECTION
+    write_cmd(0xE0);
+    write_data(0x0F);
+    write_data(0x31);
+    write_data(0x2B);
+    write_data(0x0C);
+    write_data(0x0E);
+    write_data(0x08);
+    write_data(0x4E);
+    write_data(0xF1);
+    write_data(0x37);
+    write_data(0x07);
+    write_data(0x10);
+    write_data(0x03);
+    write_data(0x0E);
+    write_data(0x09);
+    write_data(0x00);
+
+//NEGATIVE GAMMA CORRECTION
+    write_cmd(0xE1);
+    write_data(0x00);
+    write_data(0x0E);
+    write_data(0x14);
+    write_data(0x03);
+    write_data(0x11);
+    write_data(0x07);
+    write_data(0x31);
+    write_data(0xC1);
+    write_data(0x48);
+    write_data(0x08);
+    write_data(0x0F);
+    write_data(0x0C);
+    write_data(0x31);
+    write_data(0x36);
+    write_data(0x0F);
+
+    //EXIT SLEEP
+    write_cmd(0x11);
+    delay_ms(120);
+
+    write_cmd(CMD_DISPON);//gfim
+    delay_ms(10);
+    //turn on backlight
+    gpio_set(LED_PORT, LED_PIN);
+}
