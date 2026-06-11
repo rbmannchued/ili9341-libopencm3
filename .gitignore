@@ -1,0 +1,9 @@
+libopencm3/
+build/
+*.o
+*.a
+*.bin
+*.elf
+*.ld
+ili9341-libopenm3/Makefile
+rules.mk
