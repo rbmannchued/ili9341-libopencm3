@@ -1,4 +1,6 @@
-/* vim: set ai et ts=4 sw=4: */
+
+/* fonts found on Afiskon's repo: https://github.com/afiskon/stm32-ili9341/blob/master/Lib/ili9341/fonts.c */
+
 #ifndef __FONTS_H__
 #define __FONTS_H__
 
