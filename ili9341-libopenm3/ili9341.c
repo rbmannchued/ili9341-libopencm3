@@ -251,7 +251,7 @@ void ili9341_set_rotation(uint8_t rotation)
     uint8_t madctl;
     switch (rotation & 0x03) {
         case 0:
-            madctl = MADCTL_MX | MADCTL_BGR;
+            madctl = MADCTL_BGR;
             _width = ILI9341_WIDTH; _height = ILI9341_HEIGHT;
             break;
         case 1:

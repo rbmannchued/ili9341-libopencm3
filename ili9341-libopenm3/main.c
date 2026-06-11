@@ -46,13 +46,14 @@ int main(void)
     spi_gpio_setup();
     ili9341_init();
 
+    // Landscape Orientation
     ili9341_set_rotation(1);
 
     ili9341_fill_screen(ILI9341_BLACK);
 
     /* ili9341_write_string(10, 10,  "ILI9341 + libopencm3", Font_7x10,  ILI9341_WHITE,  ILI9341_BLACK); */
     ili9341_write_string(10, 30,  "Hello, World!",        Font_11x18, ILI9341_YELLOW, ILI9341_BLACK);
-    /* ili9341_write_string(10, 60,  "ABCDEF 0123456789",    Font_16x26, ILI9341_CYAN,   ILI9341_BLACK); */
+
 
     /* Red rectangle */
     ili9341_fill_rectangle(50, 50, 50, 50, ILI9341_RED);
@@ -60,8 +61,8 @@ int main(void)
     /* Green rectangle */
 
 
-    /* Single pixel */
-    for(int x = 0; x < 320/2; x++){
+    /* Row of single pixels */
+    for(int x = 0; x < 240/2; x++){
 	ili9341_draw_pixel(x, 50, ILI9341_WHITE);
 	ili9341_draw_pixel(x, 50, ILI9341_WHITE);
     }
