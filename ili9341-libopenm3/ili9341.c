@@ -50,7 +50,10 @@ static void delay_ms(uint32_t ms)
 static inline void dc_cmd(void)  { gpio_clear(TFT_PORT, TFT_DC); }
 static inline void dc_dat(void)  { gpio_set(TFT_PORT, TFT_DC);   }
 static inline void cs_low(void)  { gpio_clear(TFT_PORT, TFT_CS); }
-static inline void cs_high(void) { gpio_set(TFT_PORT, TFT_CS);   }
+static inline void cs_high(void) {
+    while (SPI_SR(TFT_SPI) & SPI_SR_BSY);
+    gpio_set(TFT_PORT, TFT_CS);
+}
 
 static inline void spi_tx(uint8_t byte)
 {
@@ -353,3 +356,28 @@ void ili9341_write_string(uint16_t x, uint16_t y, const char *str, FontDef font,
         str++;
     }
 }
+
+/* void ili9341_init(void) */
+/* { */
+/*     spi_setup(); */
+
+/*     /\* Hardware reset *\/ */
+/*     tft_reset(); */
+
+/*     /\* Initialization sequence copied from  *\/ */
+/*     write_cmd(CMD_SWRESET); */
+/*     delay_ms(150); */
+
+/*     //POWER CONTROL A */
+/*     ILI9341_Write_Command(0xCB); */
+/*     ILI9341_Write_Data(0x39); */
+/*     ILI9341_Write_Data(0x2C); */
+/*     ILI9341_Write_Data(0x00); */
+/*     ILI9341_Write_Data(0x34); */
+/*     ILI9341_Write_Data(0x02); */
+    
+
+/*     write_cmd(CMD_DISPON);//gfim */
+/*     delay_ms(10); */
+/*     gpio_set(LED_PORT, LED_PIN); */
+/* } */

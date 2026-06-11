@@ -7,3 +7,6 @@ build/
 *.ld
 ili9341-libopenm3/Makefile
 rules.mk
+*.d
+TAGS
+*~

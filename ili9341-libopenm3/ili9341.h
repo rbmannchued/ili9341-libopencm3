@@ -2,24 +2,48 @@
 #define __ILI9341_H__
 
 #include <stdint.h>
+#include "ili9341_conf.h"
 #include "fonts.h"
 
-/* --- Hardware pins (SPI1 on GPIOA) --- */
-#define LED_PORT  GPIOB
-#define LED_PIN   GPIO0
 
+/* --- Hardware pins (SPI1 on GPIOA) --- */
+#ifndef LED_PORT
+#define LED_PORT  GPIOB
+#endif
+#ifndef LED_PIN
+#define LED_PIN   GPIO0
+#endif
+
+#ifndef TFT_SPI
 #define TFT_SPI   SPI1
+#endif
+#ifndef TFT_PORT
 #define TFT_PORT  GPIOA
+#endif
+#ifndef TFT_SCK
 #define TFT_SCK   GPIO5   /* PA5 = SPI1_SCK  */
+#endif
+#ifndef TFT_MOSI
 #define TFT_MOSI  GPIO7   /* PA7 = SPI1_MOSI */
+#endif
+#ifndef TFT_CS
 #define TFT_CS    GPIO4   /* PA4 = CS  (SW)  */
+#endif
+#ifndef TFT_DC
 #define TFT_DC    GPIO3   /* PA3 = D/C       */
+#endif
+#ifndef TFT_RST
 #define TFT_RST   GPIO2   /* PA2 = RESET     */
+#endif
 
 
 /* --- Display geometry --- */
+#ifndef ILI9341_WIDTH
 #define ILI9341_WIDTH  240
+#endif
+#ifndef ILI9341_HEIGHT
 #define ILI9341_HEIGHT 320
+#endif
 
 /* --- RGB565 color helpers --- */
 #define ILI9341_COLOR(r, g, b) \
